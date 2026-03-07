@@ -3,7 +3,7 @@ import validator from "validator";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
 
-const JWT_SECRET = "your_jwt_secret_here";
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret_here";
 const TOKEN_EXPIRES= "24h";
 const createToken = (userId) => {
     return jwt.sign({ userId }, JWT_SECRET, { expiresIn: TOKEN_EXPIRES });
@@ -27,9 +27,9 @@ export async function registerUser(req, res) {
             return res.status(400).json({ message: "User already exists" });
         }
         const hashed= await bcrypt.hash(password, 10);
-        const User = await User.create({ name, email, password: hashed });
-        const token=createToken(User._id);
-        res.status(201).json({ success: true, token, user: { id: User._id, name: User.name, email: User.email } });
+        const newUser = await User.create({ name, email, password: hashed });
+        const token=createToken(newUser._id);
+        res.status(201).json({ success: true, token, user: { id: newUser._id, name: newUser.name, email: newUser.email } });
 
     } catch (error) {
         return res.status(500).json({ success: false, message: "Server error" }); 
