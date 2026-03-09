@@ -128,7 +128,8 @@ export async function getIncomeOverview(req, res) {
                 totalIncome,
                 averageIncome,
                 numberOfTransactions,
-                recentTransactions
+                recentTransactions,
+                range
             }
         });
     } catch (error) {
