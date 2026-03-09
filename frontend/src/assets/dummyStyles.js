@@ -253,7 +253,7 @@ export const expensePageStyles = {
   chartExportButton: "flex items-center gap-1 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg transition-all text-sm hover:shadow-md",
   
   // Additional empty state style 
-  emptyStateSubtext: "text-sm text-gray-500 mt-2",
+  // emptyStateSubtext: "text-sm text-gray-500 mt-2",
   
   // Timeframe positioning 
   timeframePositioning: "flex px-10 -mx-14 justify-center lg:-mx-0 md:-mx-0 lg:justify-end md:justify-end mt-4",
