@@ -153,7 +153,7 @@ const Login = ({ onLogin, API_URL = "http://localhost:4000/api" }) => {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     className={loginStyles.input}
-                                    placeholder="********"
+                                    placeholder="••••••••"
                                     required
                                 />
                                 <button type="button" onClick={() => setShowPassword(!showPassword)}
