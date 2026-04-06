@@ -43,6 +43,7 @@ import {
   Tooltip,
 } from "recharts";
 import AddTransactionModal from "../components/Add";
+import { getLocalDateString } from "../utils/dateUtils";
 
 const API_BASE = `${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api`;
 
@@ -89,7 +90,7 @@ const Dashboard = () => {
   const [showAllExpense, setShowAllExpense] = useState(false);
 
   const [newTransaction, setNewTransaction] = useState({
-    date: new Date().toISOString().split("T")[0],
+    date: getLocalDateString(),
     description: "",
     amount: "",
     type: "expense", //or income
@@ -391,7 +392,7 @@ const Dashboard = () => {
       await fetchDashboardOverview();
 
       setNewTransaction({
-        date: new Date().toISOString().split("T")[0],
+        date: getLocalDateString(),
         description: "",
         amount: "",
         type: "expense",

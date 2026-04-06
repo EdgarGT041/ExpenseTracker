@@ -30,6 +30,7 @@ import FinancialCard from "../components/FinancialCard";
 import { getTimeFrameRange, generateChartPoints } from "../components/Helpers";
 import { INCOME_COLORS, CATEGORY_ICONS_Inc } from "../assets/color";
 import { incomeStyles as styles } from "../assets/dummyStyles";
+import { getLocalDateString } from "../utils/dateUtils";
 
 const API_BASE = `${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api`;
 
@@ -188,8 +189,9 @@ const Income = () => {
     recentTransactions: [],
     range: "monthly",
   });
+
   const [newTransaction, setNewTransaction] = useState({
-    date: new Date().toISOString().split("T")[0],
+    date: getLocalDateString(),
     description: "",
     amount: "",
     type: "income",
@@ -199,7 +201,7 @@ const Income = () => {
     description: "",
     amount: "",
     category: "Salary",
-    date: new Date().toISOString().split("T")[0],
+    date: getLocalDateString(),
   });
 
   //to get the token from localstorage
@@ -367,7 +369,7 @@ const Income = () => {
       await fetchOverview(timeFrame ?? "monthly");
 
       setNewTransaction({
-        date: new Date().toISOString().split("T")[0],
+        date: getLocalDateString(),
         description: "",
         amount: "",
         type: "income",

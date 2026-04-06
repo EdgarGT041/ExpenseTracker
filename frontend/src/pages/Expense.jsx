@@ -22,6 +22,7 @@ import {
 } from "recharts";
 import axios from "axios";
 import { exportToExcel } from "../utils/exportUtils";
+import { getLocalDateString } from "../utils/dateUtils";
 import FinancialCard from "../components/FinancialCard";
 import TimeFrameSelector from "../components/TimeFrame";
 import TransactionItem from "../components/TransactionItem";
@@ -78,10 +79,10 @@ const ExpensePage = () => {
     description: "",
     amount: "",
     category: "Food",
-    date: new Date().toISOString().split("T")[0],
+    date: getLocalDateString(),
   });
   const [newTransaction, setNewTransaction] = useState({
-    date: new Date().toISOString().split("T")[0],
+    date: getLocalDateString(),
     description: "",
     amount: "",
     type: "expense",
@@ -314,7 +315,7 @@ const ExpensePage = () => {
       }
 
       setNewTransaction({
-        date: new Date().toISOString().split("T")[0],
+        date: getLocalDateString(),
         description: "",
         amount: "",
         type: "expense",
