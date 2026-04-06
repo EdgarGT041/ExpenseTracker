@@ -31,7 +31,7 @@ import { getTimeFrameRange, generateChartPoints } from "../components/Helpers";
 import { INCOME_COLORS, CATEGORY_ICONS_Inc } from "../assets/color";
 import { incomeStyles as styles } from "../assets/dummyStyles";
 
-const API_BASE = "http://localhost:4000/api";
+const API_BASE = `${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api`;
 
 //helps in converting date to ISO time
 function toIsoWithClientTime(dateValue) {

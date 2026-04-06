@@ -15,7 +15,7 @@ import Income from "./pages/Income";
 import Expense from "./pages/Expense";
 import Profile from "./pages/Profile";
 
-const API_URL = "http://localhost:4000";
+const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api`;
 
 // to get transaction from localstorage
 const getTransactionsFromStorage = () => {
@@ -127,7 +127,7 @@ const App = () => {
 
         if (storedToken) {
           try {
-            const res = await axios.get(`${API_URL}/api/user/me`, {
+            const res = await axios.get(`${API_URL}/user/me`, {
               headers: { Authorization: `Bearer ${storedToken}` },
             });
             const profile = res.data;
@@ -205,8 +205,8 @@ const App = () => {
       <ScrollToTop />
 
       <Routes>
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/signup" element={<Signup onSignup={handleSignup} />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} API_URL={API_URL} />} />
+        <Route path="/signup" element={<Signup onSignup={handleSignup} API_URL={API_URL} />} />
 
         <Route
           element={

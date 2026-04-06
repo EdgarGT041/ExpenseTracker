@@ -5,7 +5,7 @@ import { ArrowLeft, Eye, EyeOff, Mail, User, Lock } from 'lucide-react';
 import { useNavigate,Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-const Signup = ({ onSignup, API_URL = "http://localhost:4000/api" }) => {
+const Signup = ({ onSignup, API_URL }) => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
