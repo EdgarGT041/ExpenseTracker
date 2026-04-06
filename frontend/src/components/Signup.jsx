@@ -3,6 +3,7 @@ import { signupStyles, loginStyles } from '../assets/dummyStyles'
 import axios from 'axios';
 import { ArrowLeft, Eye, EyeOff, Mail, User, Lock } from 'lucide-react';
 import { useNavigate,Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Signup = ({ onSignup, API_URL = "http://localhost:4000/api" }) => {
     const [name, setName] = useState("");
@@ -106,9 +107,17 @@ const Signup = ({ onSignup, API_URL = "http://localhost:4000/api" }) => {
             if (err.response?.data?.errors) {
                 setErrors(err.response.data.errors);
             } else if (err.response?.data?.message) {
-                setErrors({ api: err.response.data.message });
+                // Verificar si hay errorField específico
+                if (err.response.data.errorField === "email") {
+                    setErrors({ email: err.response.data.message });
+                    toast.error(err.response.data.message, { position: "top-right" });
+                } else {
+                    setErrors({ api: err.response.data.message });
+                    toast.error(err.response.data.message, { position: "top-right" });
+                }
             } else {
                 setErrors({ api: err.message || "An unexpected error occurred" });
+                toast.error(err.message || "An unexpected error occurred", { position: "top-right" });
             }
         } finally {
             setIsLoading(false);

@@ -3,6 +3,7 @@ import { loginStyles } from '../assets/dummyStyles'
 import { Lock, User, Mail, EyeOff, Eye } from 'lucide-react'
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 const Login = ({ onLogin, API_URL = "http://localhost:4000/api" }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -88,6 +89,7 @@ const Login = ({ onLogin, API_URL = "http://localhost:4000/api" }) => {
                 err.message ||
                 "Login failed";
             setError(serverMsg);
+            toast.error(serverMsg, { position: "top-right" });
         } finally {
             setIsLoading(false);
         }
