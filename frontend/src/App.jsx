@@ -1,19 +1,29 @@
-import { useEffect, useState } from 'react'
-import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom'
-import Layout from './components/Layout'
-import Dashboard from './pages/Dashboard'
-import Login from './components/Login'
-import Signup from './components/Signup'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import Layout from "./components/Layout";
+import Dashboard from "./pages/Dashboard";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import axios from "axios";
+import Income from "./pages/Income";
+import Expense from "./pages/Expense";
+import Profile from "./pages/Profile";
 
-const API_URL = "http://localhost:4000/api";
+const API_URL = "http://localhost:4000";
 
 // to get transaction from localstorage
 const getTransactionsFromStorage = () => {
   const saved = localStorage.getItem("transactions");
   return saved ? JSON.parse(saved) : [];
 };
-//to protect the route
+
+// to protect the routes
 const ProtectedRoute = ({ user, children }) => {
   const localToken = localStorage.getItem("token");
   const sessionToken = sessionStorage.getItem("token");
@@ -41,7 +51,8 @@ const App = () => {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
-  //to see the token into localatorage
+
+  // to save the token
   const persistAuth = (userObj, tokenStr, remember = false) => {
     try {
       if (remember) {
@@ -64,15 +75,17 @@ const App = () => {
 
   const clearAuth = () => {
     try {
-      localStorage.removeItem("token");
       localStorage.removeItem("user");
+      localStorage.removeItem("token");
       sessionStorage.removeItem("user");
-    } catch (error) {
-      console.error("Error clearing authentication:", error);
+      sessionStorage.removeItem("token");
+    } catch (err) {
+      console.error("clearAuth error:", err);
     }
     setUser(null);
     setToken(null);
-  }
+  };
+
   // to update user data both in state and storage
   const updateUserData = (updatedUser) => {
     setUser(updatedUser);
@@ -114,13 +127,16 @@ const App = () => {
 
         if (storedToken) {
           try {
-            const res = await axios.get(`${API_URL}/user/me`, {
+            const res = await axios.get(`${API_URL}/api/user/me`, {
               headers: { Authorization: `Bearer ${storedToken}` },
             });
-            const profile = res.data?.user || res.data;
+            const profile = res.data;
             persistAuth(profile, storedToken, tokenFromLocal);
           } catch (fetchErr) {
-            console.warn("Could not fetch profile with stored token:", fetchErr);
+            console.warn(
+              "Could not fetch profile with the stored token:",
+              fetchErr,
+            );
             clearAuth();
           }
         }
@@ -159,7 +175,7 @@ const App = () => {
   const handleLogout = () => {
     clearAuth();
     navigate("/login");
-  }
+  };
 
   // transaction helpers
   const addTransaction = (newTransaction) =>
@@ -173,7 +189,6 @@ const App = () => {
   const refreshTransactions = () =>
     setTransactions(getTransactionsFromStorage());
 
-
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -184,35 +199,85 @@ const App = () => {
       </div>
     );
   }
+
   return (
     <>
       <ScrollToTop />
+
       <Routes>
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/signup" element={<Signup onSignup={handleSignup} />} />
-        <Route element={
-          <ProtectedRoute user={user}>
-            <Layout user={user} onLogout={handleLogout}
-              transactions={transactions}
-              addTransaction={addTransaction}
-              editTransaction={editTransaction}
-              deleteTransaction={deleteTransaction}
-              refreshTransactions={refreshTransactions} />
-          </ProtectedRoute>}>
+
+        <Route
+          element={
+            <ProtectedRoute user={user}>
+              <Layout
+                user={user}
+                onLogout={handleLogout}
+                transactions={transactions}
+                addTransaction={addTransaction}
+                editTransaction={editTransaction}
+                deleteTransaction={deleteTransaction}
+                refreshTransactions={refreshTransactions}
+              />
+            </ProtectedRoute>
+          }
+        >
           <Route
             path="/"
-            element={<Dashboard
-              transactions={transactions}
-              addTransaction={addTransaction}
-              editTransaction={editTransaction}
-              deleteTransaction={deleteTransaction}
-              refreshTransactions={refreshTransactions}
-            />}
+            element={<Dashboard />}
+            transactions={transactions}
+            addTransaction={addTransaction}
+            editTransaction={editTransaction}
+            deleteTransaction={deleteTransaction}
+            refreshTransactions={refreshTransactions}
+          />
+
+          <Route
+            path="/income"
+            element={
+              <Income
+                transactions={transactions}
+                addTransaction={addTransaction}
+                editTransaction={editTransaction}
+                deleteTransaction={deleteTransaction}
+                refreshTransactions={refreshTransactions}
+              />
+            }
+          />
+
+          <Route
+            path="/expense"
+            element={
+              <Expense
+                transactions={transactions}
+                addTransaction={addTransaction}
+                editTransaction={editTransaction}
+                deleteTransaction={deleteTransaction}
+                refreshTransactions={refreshTransactions}
+              />
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <Profile
+                user={user}
+                onUpdateProfile={updateUserData}
+                onLogout={handleLogout}
+              />
+            }
           />
         </Route>
+
+        <Route
+          path="*"
+          element={<Navigate to={user ? "/" : "/login"} replace />}
+        />
       </Routes>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
