@@ -104,29 +104,20 @@ const Signup = ({ onSignup, API_URL }) => {
         }
         catch (err) {
             console.error("Signup error:", err?.response || err);
-            
-            let errorMsg = "An unexpected error occurred";
-            
-            if (err.response?.status === 404) {
-                errorMsg = "API endpoint not found. Check backend URL in .env: " + API_URL + "/user/register";
-            } else if (err.response?.status === 0 || err.message === "Network Error") {
-                errorMsg = "Network error. Check if backend is running at: " + API_URL;
-            } else if (err.response?.data?.errors) {
+            if (err.response?.data?.errors) {
                 setErrors(err.response.data.errors);
-                errorMsg = Object.values(err.response.data.errors)[0];
             } else if (err.response?.data?.message) {
                 if (err.response.data.errorField === "email") {
                     setErrors({ email: err.response.data.message });
+                    toast.error(err.response.data.message, { position: "top-right" });
                 } else {
                     setErrors({ api: err.response.data.message });
+                    toast.error(err.response.data.message, { position: "top-right" });
                 }
-                errorMsg = err.response.data.message;
             } else {
-                errorMsg = err.message || "An unexpected error occurred";
-                setErrors({ api: errorMsg });
+                setErrors({ api: err.message || "An unexpected error occurred" });
+                toast.error(err.message || "An unexpected error occurred", { position: "top-right" });
             }
-            
-            toast.error(errorMsg, { position: "top-right" });
         } finally {
             setIsLoading(false);
         }

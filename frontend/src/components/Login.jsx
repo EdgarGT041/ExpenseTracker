@@ -38,11 +38,8 @@ const Login = ({ onLogin, API_URL }) => {
         setError("");
 
         try {
-            const loginUrl = `${API_URL}/user/login`;
-            console.log("Attempting login at:", loginUrl);
-            
             const res = await axios.post(
-                loginUrl,
+                `${API_URL}/user/login`,
                 { email, password },
                 { headers: { "Content-Type": "application/json" } },
             );
@@ -86,21 +83,11 @@ const Login = ({ onLogin, API_URL }) => {
 
         } catch (err) {
             console.error("Login error:", err?.response || err);
-            
-            let serverMsg = "Login failed";
-            
-            if (err.response?.status === 404) {
-                serverMsg = "API endpoint not found. Check backend URL in .env: " + API_URL + "/user/login";
-            } else if (err.response?.status === 0 || err.message === "Network Error") {
-                serverMsg = "Network error. Check if backend is running at: " + API_URL;
-            } else if (err.response?.data?.message) {
-                serverMsg = err.response.data.message;
-            } else if (err.response?.data) {
-                serverMsg = JSON.stringify(err.response.data);
-            } else {
-                serverMsg = err.message || "Login failed";
-            }
-            
+            const serverMsg =
+                err.response?.data?.message ||
+                (err.response?.data ? JSON.stringify(err.response.data) : null) ||
+                err.message ||
+                "Login failed";
             setError(serverMsg);
             toast.error(serverMsg, { position: "top-right" });
         } finally {
