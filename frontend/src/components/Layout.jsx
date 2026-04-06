@@ -431,7 +431,7 @@ const Layout = ({ onLogout, user }) => {
                 </button>
               </div>
               <div className={styles.transactions.dataStackingInfo}>
-                <Info className={styles.transactions.dataStackingInfo} />
+                <Info className={styles.transactions.dataStackingIcon} />
                 <span>Transactions are stacked by date (newest first)</span>
               </div>
               <div className={styles.transactions.listContainer}>
