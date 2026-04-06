@@ -7,7 +7,7 @@ import axios from 'axios';
 import { ArrowDown, ArrowUp, Car, CreditCard, DollarSign, Gift, Home, PiggyBank, ShoppingCart, TrendingUp, Utensils, Zap, Activity, Clock, RefreshCw, Info, ChevronUp, PieChart } from 'lucide-react';
 import { Outlet } from 'react-router-dom';
 
-const API_BASE = "http://localhost:4000/api";
+const API_BASE = `${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api`;
 const CATEGORY_ICONS = {
   Food: <Utensils className="w-4 h-4" />,
   Housing: <Home className="w-4 h-4" />,
