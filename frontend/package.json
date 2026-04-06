@@ -12,13 +12,18 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
     "axios": "^1.13.6",
+    "framer-motion": "^12.38.0",
     "lucide": "^0.577.0",
     "lucide-react": "^0.577.0",
     "motion": "^12.38.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-modal": "^3.16.3",
     "react-router-dom": "^7.13.1",
-    "tailwindcss": "^4.2.1"
+    "react-toastify": "^11.0.5",
+    "recharts": "^3.8.1",
+    "tailwindcss": "^4.2.1",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
