@@ -2,14 +2,13 @@ import React, { useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { sidebarStyles, cn } from '../assets/dummyStyles'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ArrowDown, ArrowUp, Home, User, HelpCircle, LogOut, X, Menu } from 'lucide-react';
+import { ArrowDown, ArrowUp, Home, User, Mail, LogOut, X, Menu } from 'lucide-react';
 
 const MENU_ITEMS = [
     { text: "Dashboard", path: "/", icon: <Home size={20} /> },
     { text: "Income", path: "/income", icon: <ArrowUp size={20} /> },
     { text: "Expenses", path: "/expense", icon: <ArrowDown size={20} /> },
     { text: "Profile", path: "/profile", icon: <User size={20} /> }
-
 ];
 
 
@@ -135,9 +134,9 @@ function Sidebar({ user, isCollapsed, setCollapsed }) {
                         <Link className={cn(
                             sidebarStyles.footerLink.base,
                             isCollapsed && sidebarStyles.footerLink.collapsed,
-                        )} to="http://hexagondigitalservices.com/contact">
-                            <HelpCircle size={20} className="text-gray-500" />
-                            {!isCollapsed && <span >Contact Support</span>}
+                        )} to="/contact">
+                            <Mail size={20} className="text-gray-500" />
+                            {!isCollapsed && <span >Contact</span>}
                         </Link>
                         <button onClick={handleLogout} className={cn(
                             sidebarStyles.logoutButton.base,
