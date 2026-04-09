@@ -14,6 +14,7 @@ import axios from "axios";
 import Income from "./pages/Income";
 import Expense from "./pages/Expense";
 import Profile from "./pages/Profile";
+import Contact from "./pages/Contact";
 
 const API_URL = `${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api`;
 
@@ -268,6 +269,11 @@ const App = () => {
                 onLogout={handleLogout}
               />
             }
+          />
+
+          <Route
+            path="/contact"
+            element={<Contact />}
           />
         </Route>
 
