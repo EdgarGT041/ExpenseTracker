@@ -143,7 +143,7 @@ function Sidebar({ user, isCollapsed, setCollapsed }) {
                             isCollapsed && sidebarStyles.logoutButton.collapsed
                         )}>
                             <LogOut size={20} className="text-gray-500" />
-                            {!isCollapsed && <span >Logout</span>}
+                            {!isCollapsed && <span >Log out</span>}
                         </button>
                     </div>
                 </div>
