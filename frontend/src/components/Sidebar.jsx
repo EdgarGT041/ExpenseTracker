@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { sidebarStyles, cn } from '../assets/dummyStyles'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowDown, ArrowUp, Home, User, Mail, LogOut, X, Menu } from 'lucide-react';
+import { clearStoredAuth } from "../utils/auth";
 
 const MENU_ITEMS = [
     { text: "Dashboard", path: "/", icon: <Home size={20} /> },
@@ -43,7 +44,7 @@ function Sidebar({ user, isCollapsed, setCollapsed }) {
 
     //to loggout
     const handleLogout = () => {
-        localStorage.removeItem("token");
+        clearStoredAuth();
         navigate("/login");
     };
     const toggleSidebar = () => setCollapsed((c) => !c);

@@ -4,6 +4,7 @@ import img1 from "../assets/logo.png";
 import { useNavigate } from "react-router-dom";
 import { ChevronDown, LogOut, User } from 'lucide-react';
 import axios from "axios";
+import { clearStoredAuth, getStoredToken } from "../utils/auth";
 
 const BASE_URL = `${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api`;
 
@@ -20,7 +21,7 @@ const Navbar = ({ user: propUser, onLogout }) => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const token = localStorage.getItem("token");
+                const token = getStoredToken();
                 if (!token) return;
 
                 const response = await axios.get(`${BASE_URL}/user/me`, {
@@ -47,7 +48,7 @@ const Navbar = ({ user: propUser, onLogout }) => {
 
     const handleLogout = () => {
         setMenuOpen(false);
-        localStorage.removeItem("token");
+        clearStoredAuth();
         onLogout?.();
         navigate("/login");
     };

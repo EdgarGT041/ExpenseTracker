@@ -30,6 +30,7 @@ import AddTransactionModal from "../components/Add";
 import { getTimeFrameRange, generateChartPoints } from "../components/Helpers";
 import { CATEGORY_ICONS } from "../assets/color";
 import { expensePageStyles as styles } from "../assets/dummyStyles";
+import { getAuthHeaders as buildAuthHeaders } from "../utils/auth";
 
 const API_BASE = `${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api`;
 
@@ -98,8 +99,7 @@ const ExpensePage = () => {
 
   // Auth headers helper
   const getAuthHeaders = useCallback(() => {
-    const token = localStorage.getItem("token");
-    return token ? { Authorization: `Bearer ${token}` } : {};
+    return buildAuthHeaders();
   }, []);
 
   // Fetch overview (GET /expense/overview?range=...)

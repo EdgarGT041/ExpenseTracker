@@ -17,6 +17,7 @@ import {
   calculateData,
 } from "../components/Helpers";
 import axios from "axios";
+import { getAuthHeaders } from "../utils/auth";
 import {
   ArrowDown,
   BarChart2,
@@ -46,12 +47,6 @@ import AddTransactionModal from "../components/Add";
 import { getLocalDateString } from "../utils/dateUtils";
 
 const API_BASE = `${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api`;
-
-const getAuthHeader = () => {
-  const token =
-    localStorage.getItem("token") || localStorage.getItem("authToken");
-  return token ? { Authorization: `Bearer ${token} ` } : {};
-};
 
 // to convert date to ISO timeline
 function toIsoWithClientTime(dateValue) {
@@ -277,7 +272,7 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const res = await axios.get(`${API_BASE}/dashboard`, {
-        headers: getAuthHeader(),
+        headers: getAuthHeaders(),
       });
 
       if (res?.data?.success) {
@@ -381,11 +376,11 @@ const Dashboard = () => {
       setLoading(true);
       if (newTransaction.type === "income") {
         await axios.post(`${API_BASE}/income/add`, payload, {
-          headers: getAuthHeader(),
+          headers: getAuthHeaders(),
         });
       } else {
         await axios.post(`${API_BASE}/expense/add`, payload, {
-          headers: getAuthHeader(),
+          headers: getAuthHeaders(),
         });
       }
       await refreshTransactions();

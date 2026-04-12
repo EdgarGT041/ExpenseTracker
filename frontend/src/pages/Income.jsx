@@ -31,6 +31,7 @@ import { getTimeFrameRange, generateChartPoints } from "../components/Helpers";
 import { INCOME_COLORS, CATEGORY_ICONS_Inc } from "../assets/color";
 import { incomeStyles as styles } from "../assets/dummyStyles";
 import { getLocalDateString } from "../utils/dateUtils";
+import { getAuthHeaders as buildAuthHeaders } from "../utils/auth";
 
 const API_BASE = `${import.meta.env.VITE_API_URL || "http://localhost:4000"}/api`;
 
@@ -206,8 +207,7 @@ const Income = () => {
 
   //to get the token from localstorage
   const getAuthHeaders = useCallback(() => {
-    const token = localStorage.getItem("token");
-    return token ? { Authorization: `Bearer ${token}` } : {};
+    return buildAuthHeaders();
   }, []);
 
   const timeFrameRange = useMemo(
