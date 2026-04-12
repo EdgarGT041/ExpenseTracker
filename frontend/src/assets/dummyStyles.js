@@ -721,3 +721,55 @@ export const styles = {
     expenseChange: (change) => change > 0 ? 'text-orange-600' : 'text-green-600',
   },
 };
+
+// Contact Form Styles
+export const contactStyles = {
+  // Container
+  container: "min-h-screen p-4 md:p-6",
+  
+  // Header
+  headerContainer: "bg-gradient-to-r from-blue-500/10 to-cyan-500/10 backdrop-blur-lg rounded-3xl p-6 mb-8 shadow-lg border border-white/30",
+  headerContent: "flex justify-between items-start gap-4",
+  headerTitle: "text-3xl md:text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-700 bg-clip-text text-transparent",
+  headerSubtitle: "text-gray-600 mt-2 text-sm md:text-base",
+  
+  // Form Card
+  formCard: "max-w-2xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8",
+  
+  // Form sections
+  formSection: "mb-6",
+  sectionTitle: "text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2",
+  sectionIcon: "w-5 h-5 text-blue-500",
+  
+  // Form Grid
+  formGrid: "space-y-4 md:space-y-0 md:grid md:grid-cols-2 md:gap-6",
+  fullWidth: "md:col-span-2",
+  
+  // Form elements
+  label: "block text-sm font-medium text-gray-700 mb-2",
+  input: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition-all placeholder-gray-400",
+  inputError: "border-red-300 focus:ring-red-400 focus:border-red-500",
+  textarea: "w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-400 focus:border-blue-500 transition-all placeholder-gray-400 resize-none",
+  textareaError: "border-red-300 focus:ring-red-400 focus:border-red-500",
+  
+  // Error message
+  errorText: "text-sm text-red-600 mt-1 flex items-center gap-1",
+  errorIcon: "w-4 h-4",
+  
+  // Button container
+  buttonContainer: "flex gap-3 pt-6 border-t border-gray-100",
+  
+  // Buttons
+  submitButton: "flex-1 bg-gradient-to-r from-blue-500 to-cyan-600 hover:from-blue-600 hover:to-cyan-700 text-white font-medium py-3 rounded-xl transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed",
+  resetButton: "flex-1 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-3 rounded-xl transition-all flex items-center justify-center gap-2",
+  
+  // Success & Info messages
+  successMessage: "bg-green-50 border border-green-200 text-green-800 p-4 rounded-xl mb-6 flex items-center gap-3",
+  successIcon: "w-5 h-5 text-green-600 flex-shrink-0",
+  
+  // Character count
+  charCount: "text-xs text-gray-500 mt-1 text-right",
+  
+  // Loading state
+  loadingSpinner: "animate-spin h-4 w-4",
+};
